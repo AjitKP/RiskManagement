@@ -23,7 +23,7 @@ stages:
     karmaExecuteTests: false
   Release:
     cloudFoundryDeploy: true
-    tmsUpload: false
+    tmsUpload: false 
 steps:
   cloudFoundryDeploy:
     cloudFoundry:
