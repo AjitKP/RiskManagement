@@ -24,6 +24,14 @@ entity Mitigations : managed {
                        on risks.miti = $self;
 }
 
+entity MediaFile : managed {
+    key id        : Integer;  
+        content   : LargeBinary @Core.MediaType : mediaType;        
+        mediaType : String @Core.IsMediaType : true;
+        fileName  : String;
+        url       : String;
+};
+
 using { API_BUSINESS_PARTNER as external } from '../srv/external/API_BUSINESS_PARTNER.csn';
 
 entity BusinessPartners as projection on external.A_BusinessPartner{

@@ -1,0 +1,36 @@
+###
+//@protocol = http
+@protocol = https
+//@host = localhost:4004
+@host = 05cb0a18trial-trial2-16i6n8xl-dev-risk-management-srv.cfapps.us10.hana.ondemand.com
+@port = 4004
+
+### Upload Excel File (cds compile db/schema.cds --to sql)
+### Part1
+POST {{protocol}}://{{host}}/service/filemgmt/MediaFile
+Accept: application/json
+Content-Type: application/json
+
+{ 
+  "id": 1,
+  "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
+}
+
+### Part2
+PUT {{protocol}}://{{host}}/service/filemgmt/MediaFile(1000000005)/content
+Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+
+< ./lib/BOQ_SAMPLE.xlsx
+
+### Parse Media Content
+POST {{protocol}}://{{host}}/service/filemgmt/parseBOQFile
+Content-Type: application/json
+Accept: application/json
+
+{
+    "fileid":1000000005
+}
+
+
+### Read Binary Content
+GET {{protocol}}://05cb0a18trial-trial2-16i6n8xl-dev-risk-management-srv.cfapps.us10.hana.ondemand.com/service/filemgmt/MediaFile(1000000000)/id

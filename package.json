@@ -5,10 +5,18 @@
     "repository": "<Add your repository here>",
     "license": "UNLICENSED",
     "private": true,
+    "scripts": {
+        "start": "cds run",
+        "clean": "rimraf resources mta_archives mta-op*",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar",
+        "undeploy": "cf undeploy masshireapp --delete-services --delete-service-keys"
+    },
     "dependencies": {
         "@sap/cds": "^5",
         "@sap/xsenv": "^3.1.1",
         "@sap/xssec": "^3.2.11",
+        "convert-excel-to-json": "^1.7.0",
         "express": "^4",
         "hdb": "^0.18.3",
         "passport": "^0.5.2"
@@ -16,9 +24,6 @@
     "devDependencies": {
         "@sap/ux-specification": "^1.90.14",
         "sqlite3": "^5.0.2"
-    },
-    "scripts": {
-        "start": "cds run"
     },
     "eslintConfig": {
         "extends": "eslint:recommended",
@@ -65,7 +70,7 @@
                 }
             },
             "db": {
-                "kind": "sql"
+                "kind": "hana"
             },
             "xsuaa": {
                 "kind": "xsuaa"
